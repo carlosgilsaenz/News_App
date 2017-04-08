@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">NBA News</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- Fragment Titles -->
+    <string name="western_fragment_title">Western Conference</string>
+    <string name="eastern_fragment_title">Eastern Conference</string>
+    <!-- URL strings
+    <string name="western_url">https://content.guardianapis.com/search?q=nba%20AND%20western%20conference&amp;api-key=test</string>
+    <string name="eastern_url">https://content.guardianapis.com/search?q=nba%20AND%20eastern%20conference&amp;api-key=test</string>
+    -->
+</resources>
