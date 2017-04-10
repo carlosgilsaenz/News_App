@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  * Created by csaenz on 4/7/2017.
  */
 
-public class FragmentAdapter extends FragmentPagerAdapter{
+public class FragmentAdapter extends FragmentPagerAdapter {
 
     Context mContext;
 
@@ -20,7 +20,7 @@ public class FragmentAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return new Western_Conference_Fragment();
             default:
@@ -43,5 +43,11 @@ public class FragmentAdapter extends FragmentPagerAdapter{
                 return mContext.getString(R.string.eastern_fragment_title);
         }
         return null;
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        // Allows Pager to re-create fragments
+        return POSITION_NONE;
     }
 }

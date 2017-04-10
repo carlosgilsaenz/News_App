@@ -1,18 +1,15 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/RelativeLayout">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        style="@style/Basic_One">
-    </android.support.v7.widget.RecyclerView>
+        style="@style/Basic_One"></android.support.v7.widget.RecyclerView>
 
     <TextView
         android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Click Refresh to update feed"
-        android:lines="1"/>
+        style="@style/SectionLabel"
+        android:text="@string/section_label_text"
+        tools:visibility="visible" />
 
 </RelativeLayout>

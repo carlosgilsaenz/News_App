@@ -2,43 +2,31 @@ package com.example.csaenz.nba_news;
 
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.example.csaenz.nba_news.QueryUtils.isConnected;
+
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+    private static final int REPEAT_COUNT = 0;
+
+    private static final int ANIMATION_DURATION = 1000;
+
     private FragmentAdapter mFragmentAdapter;
 
-    RotateAnimation mRotateAnimation;
+    public static RotateAnimation mRotateAnimation;
 
     @BindView(R.id.container)
     ViewPager mViewPager;
@@ -53,13 +41,17 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton mFab;
 
     @OnClick(R.id.fab)
-    public void ButtonClick(){
+    public void ButtonClick() {
 
-        if(!mRotateAnimation.hasStarted())
-        mFab.startAnimation(mRotateAnimation);
+        if (isConnected(this)) {
 
-        Snackbar.make(mViewPager, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+            mFab.startAnimation(mRotateAnimation);
+
+            mViewPager.getAdapter().notifyDataSetChanged();
+
+        } else {
+            Toast.makeText(this, R.string.no_internet_string, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -69,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        // Set up mRotation Animation for FAB
         mRotateAnimation = setupAnimation();
 
         //  Set up the Action bar
@@ -86,11 +77,12 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    public RotateAnimation setupAnimation(){
-        RotateAnimation rotateAnimation = new RotateAnimation(0, 359, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotateAnimation.setRepeatCount(Animation.INFINITE);
+    public RotateAnimation setupAnimation() {
+        RotateAnimation rotateAnimation = new RotateAnimation(
+                        0, 359, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setRepeatCount(REPEAT_COUNT);
         rotateAnimation.setRepeatMode(Animation.RESTART);
-        rotateAnimation.setDuration(1000);
+        rotateAnimation.setDuration(ANIMATION_DURATION);
         return rotateAnimation;
     }
 }
